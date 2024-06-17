@@ -1,0 +1,27 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - .github/workflows/build.yml
+      - .dockerignore
+      - Dockerfile.build
+      - poetry.lock
+      - pyproject.toml
+      - '**.py'
+      - '**.html'
+
+permissions:
+  packages: write
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
