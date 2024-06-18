@@ -24,9 +24,11 @@ jobs:
         set -e
         git config user.name "$(git log -n 1 --pretty=format:%an)"
         git config user.email "$(git log -n 1 --pretty=format:%ae)"
+        echo "Removing existing directory..."
+        rm -rf $REPO || true
         echo "cloning repo"
         git clone https://mariooohzc:$VPS@huggingface.co/spaces/mariooohzc/$REPO
-        pushd $REPO
+        cd $REPO
         echo "copying dockerfile"
         cp ../Dockerfile .
         git add Dockerfile
