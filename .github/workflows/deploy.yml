@@ -22,21 +22,21 @@ jobs:
         REPO: ${{ github.event.repository.name }}
       run: |
         set -e
-        git config --global user.email github-actions[bot]@users.noreply.github.com
-        git config --global user.name github-actions[bot]
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git config --global user.name "github-actions[bot]"
         echo "Removing existing directory..."
         rm -rf $REPO || true
-        echo "cloning repo"
+        echo "Cloning repository to $REPO..."
         git clone https://mariooohzc:$VPS@huggingface.co/spaces/mariooohzc/$REPO $REPO
         cd $REPO
-        echo "pulling latest changes"
+        echo "Pulling latest changes"
         git pull origin main
-        echo "copying dockerfile"
+        echo "Copying Dockerfile"
         cp ../Dockerfile .
         git add Dockerfile
-        echo "commiting changes"
-        git commit --amend -m"$(git show -s --format=%s)"
-        echo "pushing changes"
-        git push --force-with=lease
+        echo "Commit changes"
+        git commit --amend -m "$(git show -s --format=%s)"
+        echo "Pushing changes"
+        git push --force-with-lease
 
 
