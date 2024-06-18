@@ -24,7 +24,7 @@ jobs:
         pushd $REPO
         cp ../Dockerfile .
         git add Dockerfile
-        git commit --ammend -m"$(git show -s --format=%s)"
+        git commit --amend -m"$(git show -s --format=%s)"
         git push --force-with=lease
 
 
