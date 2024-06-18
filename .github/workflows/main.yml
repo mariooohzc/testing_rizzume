@@ -44,13 +44,6 @@ jobs:
     - name: Installing dependencies from pyproject.toml
       run: poetry install --no-dev
 
-    - name: listing files in root directory
-      run: ls -alh
-
-    - name: listing files in app directory
-      run: ls -alh /app
-    
-
     - name: Login to GitHub Container Registry
       uses: docker/login-action@v3
       with:

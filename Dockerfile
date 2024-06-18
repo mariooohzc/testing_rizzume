@@ -24,6 +24,8 @@ RUN pip install poetry
 # Copy pyproject.toml and poetry.lock to the working directory
 COPY pyproject.toml poetry.lock /app/
 
+RUN ls -alh /app
+
 # Install the dependencies
 RUN poetry install --no-dev
 
