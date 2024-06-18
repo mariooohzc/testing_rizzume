@@ -3,16 +3,14 @@ name: deploying docker image of testing rizzume
 on:
   push:
     branches: main
-  workflow_call:
-        secrets:
-          token:
-            required: true
+
+concurrency: ${{ github.job }}-${{ github.ref }}
 
 jobs:
-  deployment:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repoository
+    - name: Checkout repository
       uses: actions/checkout@v4
 
     - name: deploy to vps
