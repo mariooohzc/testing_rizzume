@@ -1,0 +1,31 @@
+name: deploying docker image of testing rizzume
+
+on:
+  push:
+    branches: 
+      -main
+  workflow_call:
+    secrets:
+      tokens:
+        required: true
+
+jobs:
+  deployment:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repoository
+      uses: actions/checkout@v4
+      with:
+        show-progress: false
+
+    - name: deploy to vps
+      env:
+        VPS_TOKEN: ${{ secrets.token }}
+        REPO: ${{ github.event.repository.name }}
+      run: |
+        git clone https://mariooohzc:$VPS_TOKEN@huggingface.co/spaces/mariooohzc/$REPO
+        pushd $REPO
+        mv ../Dockerfile .
+        git add Dockerfile
+
+
