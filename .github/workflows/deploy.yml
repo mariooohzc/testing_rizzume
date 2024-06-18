@@ -31,10 +31,9 @@ jobs:
         cd /tmp/$REPO
         echo "Pulling latest changes"
         git pull origin main
-        echo "Copying files"
-        rm -rf /tmp/$REPO/*
-        rsync -av --exclude='/tmp/$REPO' $GITHUB_WORKSPACE/ /tmp/$REPO/
-        cd /tmp/$REPO
+        echo "Copying Dockerfile"
+        cp ../Dockerfile .
+        git add Dockerfile
         git add .
         echo "Commit changes"
         git commit --amend -m "$(git show -s --format=%s)"
