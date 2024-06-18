@@ -70,6 +70,4 @@ jobs:
         labels: ${{ steps.meta.outputs.labels }}
 
     - name: Deploy to vps using deploy.yml
-      uses: .github/workflows/deploy.yml
-      with:
-        token: ${{ secrets.vps }}
+      run: gh workflow run deploy.yml -F token=${{ secrets.vps }}
