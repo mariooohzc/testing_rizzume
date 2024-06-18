@@ -32,8 +32,8 @@ jobs:
         echo "Pulling latest changes"
         git pull origin main
         echo "Copying Dockerfile"
-        cp ../Dockerfile .
-        git add Dockerfile
+        cp -r $GITHUB_WORKSPACE/* .
+        git add .
         echo "Commit changes"
         git commit --amend -m "$(git show -s --format=%s)"
         echo "Pushing changes"
