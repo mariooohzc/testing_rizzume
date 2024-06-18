@@ -5,7 +5,7 @@ on:
     branches: main
 
 jobs:
-  deploy:
+  deployment:
     on:
       workflow_call:
         secrets:
