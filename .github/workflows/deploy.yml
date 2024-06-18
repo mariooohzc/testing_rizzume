@@ -31,7 +31,8 @@ jobs:
         cd $REPO
         echo "Pulling latest changes"
         git pull origin main
-        echo "Copying Dockerfile"
+        echo "Copying files"
+        rm -rf ./*
         cp -r $GITHUB_WORKSPACE/* .
         git add .
         echo "Commit changes"
