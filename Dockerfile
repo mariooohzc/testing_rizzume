@@ -13,9 +13,23 @@
 # # Start the FastAPI app on port 7860, the default port expected by Spaces
 # CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "7860"]
 
-FROM ghcr.io/mariooohzc/testing_rizzume:main
+# Use an official Python runtime as a parent image
+FROM python:3.11-slim
 
-ENV APP_PORT 7860 
-#since for the app port, the vps mentioned that the docker space needs to listen on port 7860
+# Set the working directory in the container
+WORKDIR /app
 
-EXPOSE $APP_PORT
+# Copy the current directory contents into the container at /app
+COPY . /app
+
+# Install any needed packages specified in requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Make port 7860 available to the world outside this container
+EXPOSE 7860
+
+# Define environment variable
+ENV PYTHONUNBUFFERED=1
+
+# Run app.py when the container launches
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
