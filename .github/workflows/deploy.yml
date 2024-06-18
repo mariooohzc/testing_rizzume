@@ -13,18 +13,26 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
+    - name: display git version for debugging purposes
+      run: git --version
+
     - name: deploy to vps
       env:
         VPS: ${{ secrets.vps }}
         REPO: ${{ github.event.repository.name }}
       run: |
+        set -e
         git config user.name "$(git log -n 1 --pretty=format:%an)"
         git config user.email "$(git log -n 1 --pretty=format:%ae)"
+        echo "cloning repo"
         git clone https://mariooohzc:$VPS@huggingface.co/spaces/mariooohzc/$REPO
         pushd $REPO
+        echo "copying dockerfile"
         cp ../Dockerfile .
         git add Dockerfile
+        echo "commiting changes"
         git commit --amend -m"$(git show -s --format=%s)"
+        echo "pushing changes"
         git push --force-with=lease
 
 
