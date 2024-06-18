@@ -3,7 +3,7 @@ name: deploying docker image of testing rizzume
 on:
   workflow_call:
     secrets:
-      tokens:
+      token:
         required: true
 
 jobs:
