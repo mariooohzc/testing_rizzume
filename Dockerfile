@@ -13,7 +13,7 @@
 # # Start the FastAPI app on port 7860, the default port expected by Spaces
 # CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "7860"]
 
-FROM ghcer.io/mariooohzc/testing_rizzume:app
+FROM ghcr.io/mariooohzc/testing_rizzume:app
 
 ENV APP_PORT 7860 
 #since for the app port, the vps mentioned that the docker space needs to listen on port 7860
