@@ -27,7 +27,7 @@ jobs:
         echo "Removing existing directory..."
         rm -rf $REPO || true
         echo "Cloning repository to $REPO..."
-        git clone https://mariooohzc:$VPS@huggingface.co/spaces/mariooohzc/$REPO /tmp/$REPO
+        git clone https://mariooohzc:$VPS@huggingface.co/spaces/mariooohzc/$REPO $REPO
         cd /tmp/$REPO
         echo "Pulling latest changes"
         git pull origin main
