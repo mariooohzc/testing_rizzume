@@ -27,8 +27,10 @@ jobs:
         echo "Removing existing directory..."
         rm -rf $REPO || true
         echo "cloning repo"
-        git clone https://mariooohzc:$VPS@huggingface.co/spaces/mariooohzc/$REPO
+        git clone https://mariooohzc:$VPS@huggingface.co/spaces/mariooohzc/$REPO $REPO
         cd $REPO
+        echo "pulling latest changes"
+        git pull origin main
         echo "copying dockerfile"
         cp ../Dockerfile .
         git add Dockerfile
