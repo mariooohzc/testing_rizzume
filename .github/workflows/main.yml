@@ -6,7 +6,7 @@ on:
     paths:
       - .github/workflows/build.yml
       - .dockerignore
-      - Dockerfile.build
+      - Dockerfile
       - poetry.lock
       - pyproject.toml
       - '**.py'

@@ -23,9 +23,13 @@ jobs:
         VPS_TOKEN: ${{ secrets.token }}
         REPO: ${{ github.event.repository.name }}
       run: |
+        git config user.name "$(git log -n 1 --pretty=format:%an)"
+        git config user.email "$(git log -n 1 --pretty=format:%ae)"
         git clone https://mariooohzc:$VPS_TOKEN@huggingface.co/spaces/mariooohzc/$REPO
         pushd $REPO
-        mv ../Dockerfile .
+        cp ../Dockerfile .
         git add Dockerfile
+        git commit --ammend -m"$(git show -s --format=%s)"
+        git push --force-with=lease
 
 
