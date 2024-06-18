@@ -25,10 +25,10 @@ jobs:
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git config --global user.name "github-actions[bot]"
         echo "Removing existing directory..."
-        rm -rf $REPO || true
+        rm -rf * || true
         echo "Cloning repository to $REPO..."
         git clone https://mariooohzc:$VPS@huggingface.co/spaces/mariooohzc/$REPO $REPO
-        cd /tmp/$REPO
+        cd $REPO
         echo "Pulling latest changes"
         git pull origin main
         echo "Copying Dockerfile"
