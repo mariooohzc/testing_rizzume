@@ -19,18 +19,23 @@ FROM python:3.11-slim
 # Set the working directory in the container
 WORKDIR /app
 
+# Install Poetry
 RUN pip install poetry
 
 # Copy pyproject.toml and poetry.lock to the working directory
 COPY pyproject.toml poetry.lock /app/
 
+# List files to ensure they are copied
 RUN ls -alh /app
 
 # Install the dependencies
 RUN poetry install --no-dev
 
-# Copy the current directory contents into the container at /app
+# Copy the rest of the application files
 COPY . /app
+
+# List files to ensure they are copied
+RUN ls -alh /app
 
 # Make port 7860 available to the world outside this container
 EXPOSE 7860
