@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "testing-rizzume1"
+name = "testing-rizzume"
 version = "0.1.0"
 description = ""
 authors = ["mariooohzc <mariohanzel@outlook.com>"]
