@@ -32,7 +32,7 @@ jobs:
         echo "Pulling latest changes"
         git pull origin main
         echo "Copying files"
-        rm -rf ./*
+        rm -rf *
         cp -r $GITHUB_WORKSPACE/* .
         git add .
         echo "Commit changes"
