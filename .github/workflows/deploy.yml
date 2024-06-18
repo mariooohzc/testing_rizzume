@@ -15,12 +15,12 @@ jobs:
 
     - name: deploy to vps
       env:
-        VPS_TOKEN: ${{ secrets.token }}
+        VPS: ${{ secrets.vps }}
         REPO: ${{ github.event.repository.name }}
       run: |
         git config user.name "$(git log -n 1 --pretty=format:%an)"
         git config user.email "$(git log -n 1 --pretty=format:%ae)"
-        git clone https://mariooohzc:$VPS_TOKEN@huggingface.co/spaces/mariooohzc/$REPO
+        git clone https://mariooohzc:$VPS@huggingface.co/spaces/mariooohzc/$REPO
         pushd $REPO
         cp ../Dockerfile .
         git add Dockerfile

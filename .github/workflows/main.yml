@@ -68,3 +68,8 @@ jobs:
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
+
+    - name: Deploy to vps using deploy.yml
+      uses: ./.github/workflows/deploy.yml
+      secrets:
+        token: ${{ secrets.vps }}
