@@ -73,5 +73,4 @@ jobs:
         docker push ghcr.io/${{ github.repository_owner }}/my-image:latest
 
     - name: Run Uvicorn
-      run: |
-        docker run -d -p 7860:7860 ghcr.io/${{ github.repository_owner }}/my-image:latest
+      run: docker run -d -p 7860:7860 -w /home/user/app ghcr.io/${{ github.repository_owner }}/my-image:latest uvicorn main:app --host 0.0.0.0 --port 7860
