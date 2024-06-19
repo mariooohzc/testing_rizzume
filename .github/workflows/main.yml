@@ -72,3 +72,6 @@ jobs:
         docker build -t ghcr.io/${{ github.repository_owner }}/my-image:latest .
         docker push ghcr.io/${{ github.repository_owner }}/my-image:latest
 
+    - name: Run Uvicorn
+      run: |
+        docker run -d -p 7860:7860 ghcr.io/${{ github.repository_owner }}/my-image:latest
