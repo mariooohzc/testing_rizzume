@@ -1,81 +1,10 @@
-# name: rizzume docker image ci/cd
-
-# on:
-#   push:
-#     branches: [ "main" ]
-#     paths:
-#       - .github/workflows/build.yml
-#       - .dockerignore
-#       - Dockerfile
-#       - '**.yml'
-#       - poetry.lock
-#       - pyproject.toml
-#       - '**.py'
-#       - '**.html'
-
-# env:
-#   REGISTRY: ghcr.io
-#   IMAGE_NAME: ${{ github.repository }}
-
-# permissions:
-#   packages: write
-
-# jobs:
-
-#   build:
-
-#     runs-on: ubuntu-latest
-
-#     steps:
-#     - name: Checkout repository
-#       uses: actions/checkout@v4
-
-#     - name: Setting up Python
-#       uses: actions/setup-python@v5
-#       with:
-#         python-version-file: pyproject.toml
-
-#     - name: Installing Poetry
-#       uses: snok/install-poetry@v1
-#       with:
-#         version: 1.8.3
-#         virtualenvs-create: false
-
-#     - name: Installing dependencies from pyproject.toml
-#       run: poetry install --no-dev
-
-#     - name: Login to GitHub Container Registry
-#       uses: docker/login-action@v3
-#       with:
-#         registry: ghcr.io
-#         username: ${{ github.actor }}
-#         password: ${{ secrets.GITHUB_TOKEN }}
-    
-    
-#     - name: Extract metadata (tags, labels) for Docker
-#       id: meta
-#       uses: docker/metadata-action@v5
-#       with:
-#         images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-
-
-#     - name: Build and push Docker image
-#       id: push
-#       uses: docker/build-push-action@v6
-#       with:
-#         context: .
-#         push: true
-#         tags: ${{ steps.meta.outputs.tags }}
-#         labels: ${{ steps.meta.outputs.labels }}
-
-
 name: rizzume docker image ci/cd
 
 on:
   push:
     branches: [ "main" ]
     paths:
-      - .github/workflows/deploy.yml
+      - .github/workflows/build.yml
       - .dockerignore
       - Dockerfile
       - '**.yml'
@@ -92,15 +21,14 @@ permissions:
   packages: write
 
 jobs:
+
   build:
+
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
-
-    - name: List files in root directory after checkout
-      run: ls -alh
 
     - name: Setting up Python
       uses: actions/setup-python@v5
@@ -113,8 +41,8 @@ jobs:
         version: 1.8.3
         virtualenvs-create: false
 
-    - name: List files before Docker build
-      run: ls -alh
+    - name: Installing dependencies from pyproject.toml
+      run: poetry install --no-dev
 
     - name: Login to GitHub Container Registry
       uses: docker/login-action@v3
@@ -123,27 +51,24 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
     
+    
     - name: Extract metadata (tags, labels) for Docker
       id: meta
       uses: docker/metadata-action@v5
       with:
         images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
-    - name: Print Metadata
-      run: |
-        echo "Tags: ${{ steps.meta.outputs.tags }}"
-        echo "Labels: ${{ steps.meta.outputs.labels }}"
 
+    # - name: Build and push Docker image
+    #   id: push
+    #   uses: docker/build-push-action@v6
+    #   with:
+    #     context: .
+    #     push: true
+    #     tags: ${{ steps.meta.outputs.tags }}
+    #     labels: ${{ steps.meta.outputs.labels }}
     - name: Build and push Docker image
-      id: push
-      uses: docker/build-push-action@v6
-      with:
-        context: .
-        push: true
-        tags: ${{ steps.meta.outputs.tags }}
-        labels: ${{ steps.meta.outputs.labels }}
-
-    - name: Deploy to Hugging Face Space
       run: |
-        echo "Deploying Docker image to Hugging Face Space..."
-        # Add deployment steps if necessary
+        docker build -t ghcr.io/${{ github.repository_owner }}/my-image:latest .
+        docker push ghcr.io/${{ github.repository_owner }}/my-image:latest
+
