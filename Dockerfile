@@ -46,6 +46,6 @@
 # # Run app.py when the container launches
 # CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "7860"]
 
-FROM FROM ghcr.io/mariooohzc/test_rizzume:main
+FROM ghcr.io/mariooohzc/test_rizzume:main
 
 EXPOSE 7860
